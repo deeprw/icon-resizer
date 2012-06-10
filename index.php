@@ -23,13 +23,11 @@
 				Darg and Drop<br>Your icon
 				<p>(png | 512x512)</p>
 				
-				<!--
-<div id="inputfile">
-					Or select a file on your computer<input id="file" name="userfile" type="file">
+				<div id="inputfile">
+					<p>Or select a file on your computer</p><input id="file" name="userfile" type="file">
 				</div>
 
 				<input id="send" type="submit" value="Send File">
--->
 			</div>
 		</form>
 	</div>

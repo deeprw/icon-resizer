@@ -48,7 +48,7 @@ $(document).ready(function() {
 		xhr.send(fd);
 		var fName = file.name;
 		// document.getElementById('d').innerHTML = fName;
-		$('#dropZone').delay(700).fadeIn(300).css("background-image", "url(upload/" + fName + ")");
+		$('#dropZone').delay(3000).fadeIn(300).css("background-image", "url(upload/" + fName + ")");
     };
     
     // Показываем процент загрузки
