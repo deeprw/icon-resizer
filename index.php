@@ -8,7 +8,11 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script src="script.js"></script>
-	
+<!-- 	<script src="script_form.js"></script> -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/ajaxupload.js"></script>
+    <script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
+	<script src="js/script.js"></script>
 	<title>title</title>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -16,23 +20,37 @@
 <body>
 	<div id="wraper">	
 	<div id="d"></div>
-		<form id="test_form" enctype="multipart/form-data" action="upload.php" method="post">
+<!-- 		<form id="test_form" enctype="multipart/form-data" action="upload.php" method="post"> -->
 			<div id="dropZone">
-				<input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+<!-- 				<input type="hidden" name="MAX_FILE_SIZE" value="3000000"> -->
 				
 				Darg and Drop<br>Your icon
 				<p>(png | 512x512)</p>
-				
-				<div id="inputfile">
+			
+			<div id="uploadButton" class="button">
+            	<font>Загрузить</font>
+			</div>
+				<!--
+<div id="inputfile">
 					<p>Or select a file on your computer</p><input id="file" name="userfile" type="file">
 				</div>
-
+				
+				
 				<input id="send" type="submit" value="Send File">
+-->
 			</div>
-		</form>
+<!-- 		</form> -->
+	<div id="download">
 	</div>
-	
-	
+	</div>
+
+
+        <!--
+<ol id="files">
+            Загруженные файлы :
+        </ol>
+-->
+
 	
 	
 	<!-- Yandex.Metrika counter -->

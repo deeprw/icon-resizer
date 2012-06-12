@@ -111,7 +111,8 @@ p {
 	border-style: dashed;
 }
 #dropZone.error {
-	border-color: #990000;
+	color: #ff0013;
+	border-color: #d50000;
 	border-width: 8px;
 	border-style: dashed;
 }
@@ -156,7 +157,87 @@ div#inputfile {
 
 }
 
+#uploadButton {
+	color: white;
+	text-align: center;
+	padding: 0px;
+	margin-top: 50px;
+	margin-left: -150px;
+	position: absolute;
+	left: 50%;
+	width: 500px;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-size: 14px;
+	background-image: linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.07, rgb(0,138,230)),
+		color-stop(1, rgb(0,166,255))
+	);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	overflow:hidden;
+	height: 27px;
+	cursor:pointer;
+	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
+	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
+
+}
+
+#buttonb {
+	color: white;
+	text-align: center;
+	padding: 0px;
+	margin-top: 50px;
+	margin-left: -150px;
+	position: absolute;
+	left: 50%;
+	width: 300px;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-size: 14px;
+	background-image: linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.07, rgb(0,138,230)),
+		color-stop(1, rgb(0,166,255))
+	);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	overflow:hidden;
+	height: 27px;
+	cursor:pointer;
+	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
+	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
+
+}
+
 div#inputfile:hover {
+           
+	border-color: white;
+           
+	border-width: 1px;
+           
+	border-style: dashed;
+           
+}
+
+#uploadButton:hover {
            
 	border-color: white;
            
@@ -190,3 +271,28 @@ div#inputfile p {
 	color: white;
 	z-index: 2;
 }
+
+#image {
+	left: 0px;
+	top: 0px;
+	z-index: 999999;
+	position: absolute;
+	display: none;
+}
+
+#download {
+	margin-top: 60px;
+	font-weight: bold;
+	color: #347dff;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	width: 100%;
+	text-align: center;
+	font-size: 48px;
+	float: right;
+	position: relative;
+}
+
+a {
+	color: #2f589d;
+}
+

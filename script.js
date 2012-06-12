@@ -1,13 +1,15 @@
 $(document).ready(function() {
     
     var dropZone = $('#dropZone'),
-        maxFileSize = 100000000; // максимальный размер фалйа - 1 мб.
+        maxFileSize = 1000000; // максимальный размер фалйа - 1 мб.
     
     // Проверка поддержки браузером
-    if (typeof(window.FileReader) == 'undefined') {
+   /*
+ if (typeof(window.FileReader) == 'undefined') {
         dropZone.text('Не поддерживается браузером!');
         dropZone.addClass('error');
     }
+*/
     
     // Добавляем класс hover при наведении
     dropZone[0].ondragover = function() {
@@ -30,46 +32,52 @@ $(document).ready(function() {
         
         var file = event.dataTransfer.files[0];
         
+        
         // Проверяем размер файла
         if (file.size > maxFileSize) {
             dropZone.text('Файл слишком большой!');
             dropZone.addClass('error');
+            
             return false;
         }
-        
+     //alert(file.width+'x'+file.height);
         // Создаем запрос
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest()
         xhr.upload.addEventListener('progress', uploadProgress, false);
         xhr.onreadystatechange = stateChange;
-        xhr.open('POST', 'upload.php');
-        xhr.setRequestHeader('X-FILE-NAME', file.name);
+        xhr.open('POST', 'upload.php', true);
+        xhr.setRequestHeader('X-FILE-NAME', file.name);     
         var fd = new FormData;
-		fd.append("file", file);
+		fd.append("userfile", file);
 		xhr.send(fd);
-		var fName = file.name;
-		// document.getElementById('d').innerHTML = fName;
-		$('#dropZone').delay(3000).fadeIn(300).css("background-image", "url(upload/" + fName + ")");
-    };
-    
+
+ 
     // Показываем процент загрузки
     function uploadProgress(event) {
         var percent = parseInt(event.loaded / event.total * 100);
-        dropZone.text('Загрузка: ' + percent + '%');
+        dropZone.text('Resize: ' + percent + '%');
     }
-    
+   ;
     // Пост обрабочик
     function stateChange(event) {
         if (event.target.readyState == 4) {
             if (event.target.status == 200) {
-				dropZone.text('');
+				dropZone.text(' ');
+				//var fName = parseInt("data", 1);			
+				//
+	     		var my_image = xhr.responseText;
+	     		document.getElementById('download').innerHTML = my_image;
+	     		fName = document.getElementById("image").innerHTML
+	     		$('#dropZone').fadeIn(300).css("background-image", "url(" + fName + ")");
 				
-
 				
             } else {
-                dropZone.text('Произошла ошибка!');
+                dropZone.text('Error');
                 dropZone.addClass('error');
             }
         }
     }
+    
+    };
    
 });
