@@ -55,20 +55,21 @@ $(document).ready(function() {
     // Показываем процент загрузки
     function uploadProgress(event) {
         var percent = parseInt(event.loaded / event.total * 100);
-        dropZone.text('Resize: ' + percent + '%');
+        $('#content').text('Resize: ' + percent + '%');
     }
    ;
     // Пост обрабочик
     function stateChange(event) {
         if (event.target.readyState == 4) {
             if (event.target.status == 200) {
-				dropZone.text(' ');
+				//dropZone.text(' ');
 				//var fName = parseInt("data", 1);			
 				//
 	     		var my_image = xhr.responseText;
 	     		document.getElementById('download_text').innerHTML = my_image;
 	     		fName = document.getElementById("image").innerHTML
-	     		$('#dropZone').fadeIn(300).css("background-image", "url(" + fName + ")");
+	     		$('#content').fadeOut(500);
+	     		$('#iconz').fadeIn(500).css("background-image", "url(" + fName + ")");
 				
 				
             } else {

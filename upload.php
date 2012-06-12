@@ -1,9 +1,7 @@
 <?php
 	$size = getimagesize($_FILES['userfile']['tmp_name']);
-	if (preg_match("/А-Яа-я/", $_FILES['userfile']['tmp_name'])) {
-		echo("Aaa");
-	}
-	else {
+	$filename = $_FILES['userfile']['name'];
+
 	
 	if ($size[2] != 3 || $size[0] != 512 || $size[1] != 512) {
 		echo("
@@ -54,6 +52,6 @@
 						<font>Resize other icon</font>
 			</div>"
 		);
-	}
+	
 	}
 ?>

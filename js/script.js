@@ -27,10 +27,11 @@ $(document).ready(function() {
               // показываем что файл загружен
               
 				$(dest_zip).appendTo("#download_text");
-				$('#dropZone').text(' ');
+				//$('#dropZone').text(' ');
 				fName = document.getElementById("image").innerHTML
 				$('#dropZone').addClass('drop');
-				$('#dropZone').fadeIn(300).css("background-image", "url(" + fName + ")");
+				$('#content').fadeOut(500);
+				$('#iconz').fadeIn(500).css("background-image", "url(" + fName + ")");
 				
             }
           });

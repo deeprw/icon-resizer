@@ -69,7 +69,8 @@ BODY {
 	padding: 0px;
 	margin: 0px;
 }
-wraper {
+#wraper {
+	display: none;
 	text-align: center;
 	height: 100%;
 	width: 100%;
@@ -77,6 +78,9 @@ wraper {
 	margin: 0px;
 }
 #dropZone {
+	z-index: 3;
+	float: left;
+	top: 0px;
 	background-position: center center;
 	padding-top: 150px;
 	background-repeat: no-repeat;
@@ -88,11 +92,54 @@ wraper {
 	font-family: Helvetica, Verdana, Arial, sans-serif;
 	font-weight: bold;
 	font-size: 48px;
+	position: absolute;
+	height: 362px;
+	width: 512px;
+	color: #3399ff;
+	-webkit-border-radius: 48px;
+    -moz-border-radius: 48px;
+    border-radius: 48px
+        
+}
+#zone {
+	z-index: 0;
+	border-width: 0px;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	border-color: #7f7f7f;
+	border-style: dashed;
+	text-align: center;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 48px;
 	margin-left: -256px;
 	left: 50%;
-	top: 100px;
+	top: 70px;
 	position: relative;
-	height: 362px;
+	height: 512px;
+	width: 512px;
+	color: #3399ff;
+	-webkit-border-radius: 48px;
+    -moz-border-radius: 48px;
+    border-radius: 48px
+        
+}
+#iconz {
+	display: none;
+	float: left;
+	top: 0px;
+	z-index: 5;
+	background-position: center center;
+
+	border-color: #7f7f7f;
+	border-style: dashed;
+	text-align: center;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 48px;
+	position: absolute;
+	height: 512px;
 	width: 512px;
 	color: #3399ff;
 	-webkit-border-radius: 48px;

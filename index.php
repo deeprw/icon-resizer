@@ -5,33 +5,43 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	
 	<script src="script.js"></script>
 	<script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/ajaxupload.js"></script>
 	<script src="js/script.js"></script>
 	
 	<title>title</title>
-	
+<script type="text/javascript">
+	$(document).ready(function() {
+  		$('#wraper').fadeIn(1000);
+  		$('#dropZone').fadeIn(1000);
+	});
+  </script> 
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
 	<div id="wraper">	
 		<div id="d"></div>
+		<div id="zone">
 			<div id="dropZone">
-							
-				Darg and Drop<br>
-				Your icon
-				<p>(png | 512x512)</p>
-				
-				<div id="buttonBox">		
-					<div id="uploadButton" class="button">
-						<font>Or select a file on your computer</font>
+				<div id="iconz"></div>			
+					<div id="content">
+						Darg and Drop<br>
+						Your icon
+						<p>(png | 512x512)</p>
+						
+						<div id="buttonBox">		
+							<div id="uploadButton" class="button">
+								<font>Or select a file on your computer</font>
+							</div>
+						</div>
 					</div>
-				</div>
 			</div>
-			<div id="download_text">
-			</div>
+		</div>
+		<div id="download_text">
+		</div>
 	</div>
 
 	
