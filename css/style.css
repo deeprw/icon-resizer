@@ -130,10 +130,13 @@ p {
 	
 }
 
-#buttonb {
+#tryagain {
+	padding-left: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	padding-top: 6px;
 	color: white;
 	text-align: center;
-	padding: 0px;
 	margin-top: 50px;
 	margin-left: -150px;
 	position: absolute;
@@ -156,9 +159,9 @@ p {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: 1px solid #639eff;
 	overflow:hidden;
-	height: 27px;
+	height: 20px;
 	cursor:pointer;
 	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
 	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
@@ -166,6 +169,16 @@ p {
 }
 
 #buttonBox:hover {
+           
+	border-color: white;
+           
+	border-width: 1px;
+           
+	border-style: dashed;
+           
+}
+
+#tryagain:hover {
            
 	border-color: white;
            
@@ -240,5 +253,28 @@ a {
 	cursor:pointer;
 	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
 	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
+}
+
+#error {
+	margin-left: -305px;
+	left: 50%;
+	width: 610px;
+	margin-top: -400px;
+	color: #c71465;
+	font-weight: bold;
+	text-align: center;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-size: 48px;
+	position: absolute;
+}
+
+#error a {
+	font-style: italic;
+	font-size: 30px;
+	color: #089f07;
+}
+
+#error p {
+	font-size: 20px;
 }
 
