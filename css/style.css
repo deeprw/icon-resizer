@@ -122,74 +122,12 @@ p {
 	border-style: dashed;
 }
 
-div#inputfile {
-	text-align: center;
-	padding: 0px;
-	margin-top: 50px;
-	margin-left: -150px;
-	position: relative;
-	left: 50%;
-	width: 300px;
-	color: white;
-	font-family: Helvetica, Verdana, Arial, sans-serif;
-	font-size: 14px;
-	background-image: linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.07, rgb(0,138,230)),
-		color-stop(1, rgb(0,166,255))
-	);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid #6699ff;
-	overflow:hidden;
-	height: 27px;
-	cursor:pointer;
-	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
-	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
-
-}
-
 #uploadButton {
-	color: white;
-	text-align: center;
-	padding: 0px;
-	margin-top: 50px;
-	margin-left: -150px;
-	position: absolute;
-	left: 50%;
-	width: 500px;
-	font-family: Helvetica, Verdana, Arial, sans-serif;
-	font-size: 14px;
-	background-image: linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.07, rgb(0,138,230)),
-		color-stop(1, rgb(0,166,255))
-	);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid black;
-	overflow:hidden;
+	
+	padding-top: 6px;
+	
 	height: 27px;
-	cursor:pointer;
-	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
-	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
-
+	
 }
 
 #buttonb {
@@ -227,7 +165,7 @@ div#inputfile {
 
 }
 
-div#inputfile:hover {
+#buttonBox:hover {
            
 	border-color: white;
            
@@ -237,33 +175,7 @@ div#inputfile:hover {
            
 }
 
-#uploadButton:hover {
-           
-	border-color: white;
-           
-	border-width: 1px;
-           
-	border-style: dashed;
-           
-}
-
-input#send {
-}
-
-div input#file {
-
-      position: absolute;
-
-      font-size:199px;
-      cursor:pointer;
-      padding:0px;
-      margin:0px;
-      margin-left:-450px;
-	z-index: 99;
-
-}
-
-div#inputfile p {
+div#uploadButton p {
 	width: 300px;
 	padding-top: 5px;
 	text-align: center;
@@ -294,5 +206,39 @@ div#inputfile p {
 
 a {
 	color: #2f589d;
+}
+
+#buttonBox {
+	color: white;
+	text-align: center;
+	padding: 0px;
+	margin-top: 50px;
+	margin-left: -150px;
+	position: absolute;
+	left: 50%;
+	width: 300px;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-size: 14px;
+	background-image: linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,138,230) 7%, rgb(0,166,255) 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.07, rgb(0,138,230)),
+		color-stop(1, rgb(0,166,255))
+	);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #80a5fb;
+	overflow:hidden;
+	height: 27px;
+	cursor:pointer;
+	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
+	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
 }
 

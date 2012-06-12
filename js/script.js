@@ -8,7 +8,7 @@ $(document).ready(function() {
             onSubmit : function(file, ext) {
               // показываем картинку загрузки файла
              // $("img#load").attr("src", "load.gif");
-              $("#uploadButton font").text('Загрузка');
+              $("#uploadButton font").text('Please wait, I resize your icon');
 
               /*
                * Выключаем кнопку на время загрузки файла
@@ -19,7 +19,7 @@ $(document).ready(function() {
             onComplete : function(file, dest_zip) {
               // убираем картинку загрузки файла
               //$("img#load").attr("src", "loadstop.gif");
-              $("#uploadButton font").text('Загрузить');
+              $("#uploadButton font").text('Or select a file on your computer');
 
               // снова включаем кнопку
               this.enable();
