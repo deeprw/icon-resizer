@@ -26,7 +26,7 @@ $(document).ready(function() {
 
               // показываем что файл загружен
               
-				$(dest_zip).appendTo("#download");
+				$(dest_zip).appendTo("#download_text");
 				$('#dropZone').text(' ');
 				fName = document.getElementById("image").innerHTML
 				$('#dropZone').addClass('drop');

@@ -131,15 +131,17 @@ p {
 }
 
 #tryagain {
+	clear: left;
+	float: left;
 	padding-left: 0px;
 	padding-bottom: 0px;
 	padding-right: 0px;
 	padding-top: 6px;
 	color: white;
 	text-align: center;
-	margin-top: 50px;
+	margin-top: 10px;
 	margin-left: -150px;
-	position: absolute;
+	position: relative;
 	left: 50%;
 	width: 300px;
 	font-family: Helvetica, Verdana, Arial, sans-serif;
@@ -155,6 +157,48 @@ p {
 		left top,
 		color-stop(0.07, rgb(0,138,230)),
 		color-stop(1, rgb(0,166,255))
+	);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #639eff;
+	overflow:hidden;
+	height: 20px;
+	cursor:pointer;
+	-webkit-box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);        
+	box-shadow:  0px 1px 1px 0px rgba(0, 0, 0, 1);
+
+}
+
+#download {
+	clear: left;
+	float: left;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	padding-right: 0px;
+	padding-top: 6px;
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: -150px;
+	position: relative;
+	left: 50%;
+	width: 300px;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-size: 14px;
+	background-image: linear-gradient(bottom, rgb(0,89,12) 2%, rgb(0,158,0) 83%);
+	background-image: linear-gradient(bottom, rgb(0,122,16) 2%, rgb(0,158,0) 83%);
+	background-image: -o-linear-gradient(bottom, rgb(0,122,16) 2%, rgb(0,158,0) 83%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,122,16) 2%, rgb(0,158,0) 83%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,122,16) 2%, rgb(0,158,0) 83%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,122,16) 2%, rgb(0,158,0) 83%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.02, rgb(0,122,16)),
+		color-stop(0.83, rgb(0,158,0))
 	);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -188,6 +232,16 @@ p {
            
 }
 
+#download:hover {
+           
+	border-color: white;
+           
+	border-width: 1px;
+           
+	border-style: dashed;
+           
+}
+
 div#uploadButton p {
 	width: 300px;
 	padding-top: 5px;
@@ -205,15 +259,15 @@ div#uploadButton p {
 	display: none;
 }
 
-#download {
-	margin-top: 60px;
+#download_text {
+	top: 100px;
 	font-weight: bold;
 	color: #347dff;
 	font-family: Helvetica, Verdana, Arial, sans-serif;
 	width: 100%;
 	text-align: center;
 	font-size: 48px;
-	float: right;
+	float: left;
 	position: relative;
 }
 
@@ -256,10 +310,10 @@ a {
 }
 
 #error {
-	margin-left: -305px;
+	margin-left: -300px;
 	left: 50%;
 	width: 610px;
-	margin-top: -400px;
+	margin-top: -420px;
 	color: #c71465;
 	font-weight: bold;
 	text-align: center;

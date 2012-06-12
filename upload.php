@@ -1,10 +1,15 @@
 <?php
 	$size = getimagesize($_FILES['userfile']['tmp_name']);
+	if (preg_match("/А-Яа-я/", $_FILES['userfile']['tmp_name'])) {
+		echo("Aaa");
+	}
+	else {
+	
 	if ($size[2] != 3 || $size[0] != 512 || $size[1] != 512) {
 		echo("
 			<div id='error'>
 				<br>Your picture not supported<br><br><p>Please used only *.PNG 512x512px</p>
-			
+			<br>
 				<div id='tryagain' onClick=window.location='index.php'>
 						<font>try again</font>
 				</div>
@@ -38,6 +43,17 @@
 		copy($source_png, $dest_png);
 		unlink($source_png);
 		
-		echo("<div id='image'>$dest_png</div><br><a href='". $dest_zip ."'>Download ZIP</a>");
+		echo("
+			<div id='image'>
+				$dest_png
+			</div>
+			<div id='download' onClick=window.location='$dest_zip'>
+						<font>Ready! Download ZIP</font>
+			</div>
+			<div id='tryagain' onClick=window.location='index.php'>
+						<font>Resize other icon</font>
+			</div>"
+		);
+	}
 	}
 ?>

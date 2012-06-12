@@ -66,7 +66,7 @@ $(document).ready(function() {
 				//var fName = parseInt("data", 1);			
 				//
 	     		var my_image = xhr.responseText;
-	     		document.getElementById('download').innerHTML = my_image;
+	     		document.getElementById('download_text').innerHTML = my_image;
 	     		fName = document.getElementById("image").innerHTML
 	     		$('#dropZone').fadeIn(300).css("background-image", "url(" + fName + ")");
 				

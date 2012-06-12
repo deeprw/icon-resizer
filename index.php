@@ -30,8 +30,8 @@
 					</div>
 				</div>
 			</div>
-			<div id="download">
-		</div>
+			<div id="download_text">
+			</div>
 	</div>
 
 	
