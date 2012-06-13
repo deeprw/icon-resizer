@@ -1,7 +1,7 @@
 #!/bin/sh
 
-conv='/usr/bin/convert'
-zipping='/usr/bin/zip -q -0 -X -r'
+conv='/usr/local/bin/convert'
+zipping='/usr/local/bin/zip -q -0 -X -r'
 
 
 unsucc_test()
