@@ -28,7 +28,7 @@
 			<div id="dropZone">
 				<div id="iconz"></div>			
 					<div id="content">
-						Darg and Drop<br>
+						Drag and Drop<br>
 						Your icon
 						<p>(png | 512x512)</p>
 						
