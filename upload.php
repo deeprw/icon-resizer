@@ -1,57 +1,88 @@
 <?php
-	$size = getimagesize($_FILES['userfile']['tmp_name']);
-	$filename = $_FILES['userfile']['name'];
-
+	define("MAX_IMAGE_SIZE", 1024 * 1024);
+	define("IMAGE_DEFINITION", 512);
 	
-	if ($size[2] != 3 || $size[0] != 512 || $size[1] != 512) {
+	function error($message) {
 		echo("
 			<div id='error'>
-				<br>Your picture not supported<br><br><p>Please used only *.PNG 512x512px</p>
-			<br>
+				<br>" . $message . "<br>
 				<div id='tryagain' onClick=window.location='index.php'>
 						<font>try again</font>
 				</div>
 			</div>"
 		);
+		exit();
 	}
-	else {	
-		// print_r($size);
-		$uploaddir = getcwd().DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR;
 	
-		$hash_file_name = md5(uniqid(rand(),1));
-		$hash_file_name = substr("$hash_file_name", -5);
-		$random_file_name = "IconResizer_".$hash_file_name."_";
+	function slugify($text)
+	{
+		$text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 		
-		$uploadfile = $uploaddir.$random_file_name.basename($_FILES['userfile']['name']);
+		$text = trim($text, '-');
 		
-		move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
+		if (function_exists('iconv')) 
+			$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
 		
-		$exec = exec("./resizer.sh ".$uploadfile);
-	
-		$file = $random_file_name.basename($_FILES['userfile']['name']);
-		$name = substr("$file", 0, -4);
+		$text = strtolower($text);
 		
-		$source_zip = "$name.zip";
-		$dest_zip = "arch/zip/$source_zip";
-		copy($source_zip, $dest_zip);
-		unlink($source_zip);
+		$text = preg_replace('~[^-\w]+~', '', $text);
 		
-		$source_png = "upload/$file";
-		$dest_png = "arch/source/$file";
-		copy($source_png, $dest_png);
-		unlink($source_png);
+		if (empty($text))
+			return 'n-a';
 		
-		echo("
-			<div id='image'>
-				$dest_png
-			</div>
-			<div id='download' onClick=window.location='$dest_zip'>
-						<font>Ready! Download ZIP</font>
-			</div>
-			<div id='tryagain' onClick=window.location='index.php'>
-						<font>Resize other icon</font>
-			</div>"
-		);
-	
+		return $text;
 	}
+
+	function validateImageSize($image) {
+		return $image['size'] <= MAX_IMAGE_SIZE;
+	}
+	
+	function validateImageType($image) {
+		$info = getimagesize($image['tmp_name']);
+		return $info[2] == IMAGETYPE_PNG;
+	}
+	
+	function validateImageDefinition($image) {
+		$info = getimagesize($image['tmp_name']);
+		return $info[0] == IMAGE_DEFINITION && $info[1] = IMAGE_DEFINITION;
+	}
+	
+	$image = $_FILES['userfile'];
+	
+	if (!validateImageSize($image))
+		error("Invalid image size");
+	if (!validateImageType($image))
+		error("Invalid image type");
+	if (!validateImageDefinition($image))
+		error("Invalid image definition");
+	
+	$uploadpath = 'upload' . DIRECTORY_SEPARATOR . uniqid();
+	while (file_exists($uploadpath))
+		$uploadpath = 'upload' . DIRECTORY_SEPARATOR . uniqid();
+		
+	if (!mkdir($uploadpath))
+		error("Internal error, code = 0x01");
+	
+	$imagename = slugify(basename($image['name'], ".png"));
+	
+	$imagepath = $uploadpath . DIRECTORY_SEPARATOR . $imagename . ".png";
+	$archivepath = $uploadpath . DIRECTORY_SEPARATOR . $imagename . ".zip";
+	
+	if (!move_uploaded_file($image['tmp_name'], $imagepath))
+		error("Internal error, code = 0x02");
+	
+	if (exec("./resizer.sh " . $imagepath . " " . $archivepath))
+		error("Internal error, code = 0x03");
+	
+	echo("
+		<div id='image'>
+			$imagepath
+		</div>
+		<div id='download' onClick=window.location='$archivepath'>
+					<font>Ready! Download ZIP</font>
+		</div>
+		<div id='tryagain' onClick=window.location='index.php'>
+					<font>Resize other icon</font>
+		</div>"
+	);
 ?>
