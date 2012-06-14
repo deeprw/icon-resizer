@@ -2,6 +2,9 @@
 	define("MAX_IMAGE_SIZE", 1024 * 1024);
 	define("IMAGE_DEFINITION", 512);
 	
+	define("UPLOAD_DIRECTORY", "upload");
+	define("TEMPORARY_DIRECTORY", "tmp");
+	
 	function error($message) {
 		echo("
 			<div id='error'>
@@ -32,6 +35,10 @@
 		
 		return $text;
 	}
+	
+	function createDirectory($path) {
+		return file_exists($path) || mkdir($path);
+	}
 
 	function validateImageSize($image) {
 		return $image['size'] <= MAX_IMAGE_SIZE;
@@ -56,12 +63,17 @@
 	if (!validateImageDefinition($image))
 		error("Invalid image definition");
 	
-	$uploadpath = 'upload' . DIRECTORY_SEPARATOR . uniqid();
+	if (!createDirectory(UPLOAD_DIRECTORY))
+		error("Internal error, code = 0x01");
+	if (!createDirectory(TEMPORARY_DIRECTORY))
+		error("Internal error, code = 0x02");
+	
+	$uploadpath = UPLOAD_DIRECTORY . DIRECTORY_SEPARATOR . uniqid();
 	while (file_exists($uploadpath))
-		$uploadpath = 'upload' . DIRECTORY_SEPARATOR . uniqid();
+		$uploadpath = UPLOAD_DIRECTORY . DIRECTORY_SEPARATOR . uniqid();
 		
 	if (!mkdir($uploadpath))
-		error("Internal error, code = 0x01");
+		error("Internal error, code = 0x03");
 	
 	$imagename = slugify(basename($image['name'], ".png"));
 	
@@ -69,10 +81,10 @@
 	$archivepath = $uploadpath . DIRECTORY_SEPARATOR . $imagename . ".zip";
 	
 	if (!move_uploaded_file($image['tmp_name'], $imagepath))
-		error("Internal error, code = 0x02");
+		error("Internal error, code = 0x04");
 	
 	if (exec("./resizer.sh " . $imagepath . " " . $archivepath))
-		error("Internal error, code = 0x03");
+		error("Internal error, code = 0x05");
 	
 	echo("
 		<div id='image'>
