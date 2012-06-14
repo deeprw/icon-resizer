@@ -8,6 +8,14 @@
 
 	class ValidationException extends RuntimeException { }
 
+	function joinPath() {
+		return join(DIRECTORY_SEPARATOR, func_get_args());
+	}
+
+	function createDirectory($path) {
+		return file_exists($path) || mkdir($path);
+	}
+
 	function slugify($text) {
 		$text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
@@ -24,10 +32,6 @@
 			return 'n-a';
 
 		return $text;
-	}
-
-	function createDirectory($path) {
-		return file_exists($path) || mkdir($path);
 	}
 
 	function validateImageSize($image) {
@@ -59,17 +63,17 @@
 		if (!createDirectory(TEMPORARY_DIRECTORY))
 			throw new RuntimeException("Couldn't create temporary directory!");
 
-		$uploadpath = UPLOAD_DIRECTORY . DIRECTORY_SEPARATOR . uniqid();
+		$uploadpath = joinPath(UPLOAD_DIRECTORY, uniqid());
 		while (file_exists($uploadpath))
-			$uploadpath = UPLOAD_DIRECTORY . DIRECTORY_SEPARATOR . uniqid();
+			$uploadpath = joinPath(UPLOAD_DIRECTORY, uniqid());
 
 		if (!mkdir($uploadpath))
 			throw new RuntimeException("Couldn't create directory for uploaded image!");
 
-		$imagename = slugify(basename($image['name'], ".png"));
+		$imageName = slugify(basename($image['name'], ".png"));
 
-		$imagepath = $uploadpath . DIRECTORY_SEPARATOR . $imagename . ".png";
-		$archivepath = $uploadpath . DIRECTORY_SEPARATOR . $imagename . ".zip";
+		$imagepath = joinPath($uploadpath, $imageName . ".png");
+		$archivepath = joinPath($uploadpath, $imageName . ".zip");
 
 		if (!move_uploaded_file($image['tmp_name'], $imagepath))
 			throw new RuntimeException("Couldn't move uploaded image!");
