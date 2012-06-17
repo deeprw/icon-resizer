@@ -1,38 +1,40 @@
-$(document).ready(function() {
-	
-      var button = $('#uploadButton'), interval;
+$(function() {
+	$.ajax_upload($('#uploadButton'), {
+		action : 'upload.php',
+		name : 'userfile',
+		onSubmit : function(file, ext) {
+			$("#uploadButton font").text('Please wait, I resize your icon');
+			this.disable();
+		},
+		onComplete : function(file, responseText) {
+			$("#uploadButton font").text('Or select a file on your computer');
+			this.enable();
 
-      $.ajax_upload(button, {
-            action : 'upload.php',
-            name : 'userfile',
-            onSubmit : function(file, ext) {
-              // показываем картинку загрузки файла
-             // $("img#load").attr("src", "load.gif");
-              $("#uploadButton font").text('Please wait, I resize your icon');
+			response = JSON.parse(responseText);
 
-              /*
-               * Выключаем кнопку на время загрузки файла
-               */
-              this.disable();
-
-            },
-            onComplete : function(file, dest_zip) {
-              // убираем картинку загрузки файла
-              //$("img#load").attr("src", "loadstop.gif");
-              $("#uploadButton font").text('Or select a file on your computer');
-
-              // снова включаем кнопку
-              this.enable();
-
-              // показываем что файл загружен
-              
-				$(dest_zip).appendTo("#download_text");
-				//$('#dropZone').text(' ');
-				fName = document.getElementById("image").innerHTML
+			if (response.status == "success") {
 				$('#dropZone').addClass('drop');
 				$('#content').fadeOut(500);
-				$('#iconz').fadeIn(500).css("background-image", "url(" + fName + ")");
-				
-            }
-          });
-    });
+				$('#iconz').fadeIn(500).css("background-image", "url(" + response.imageUrl + ")");
+
+				$('<div id="download" onClick="window.location=\'' + response.archiveUrl + '\'"></div>')
+					.append($('<font>Ready! Download ZIP</font>'))
+					.appendTo("#download_text");
+
+				$('<div id="tryagain" onClick="window.location=\'index.php\'"></div>')
+					.append($('<font>Resize other icon</font>'))
+					.appendTo("#download_text");
+			}
+			else {
+				$('<div id="error"></div>')
+					.append($('<br/>'))
+					.append(response.message)
+					.append($('<br/>'))
+					.append(
+						$('<div id="tryagain" onClick="window.location=\'index.php\'"></div>')
+							.append($('<font>Try again</font>'))
+					).appendTo("#download_text");
+			}
+		}
+	});
+});

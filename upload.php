@@ -6,6 +6,8 @@
 	define("UPLOAD_DIRECTORY", "upload");
 	define("TEMPORARY_DIRECTORY", "tmp");
 
+	define("UPLOAD_URL", "upload");
+
 	class ValidationException extends RuntimeException { }
 
 	function joinPath() {
@@ -55,52 +57,49 @@
 			throw new ValidationException("Invalid image size!");
 		if (!validateImageType($image))
 			throw new ValidationException("Invalid image type!");
-		if (!validateImageDefinition($image))
-			throw new ValidationException("Invalid image definition!");
+		#if (!validateImageDefinition($image))
+		#	throw new ValidationException("Invalid image definition!");
 
 		if (!createDirectory(UPLOAD_DIRECTORY))
 			throw new RuntimeException("Couldn't create upload directory!");
 		if (!createDirectory(TEMPORARY_DIRECTORY))
 			throw new RuntimeException("Couldn't create temporary directory!");
 
-		$uploadpath = joinPath(UPLOAD_DIRECTORY, uniqid());
-		while (file_exists($uploadpath))
-			$uploadpath = joinPath(UPLOAD_DIRECTORY, uniqid());
+		$directoryName = uniqid();
+		while (file_exists(joinPath(UPLOAD_DIRECTORY, $directoryName)))
+			$directoryName = uniqid();
 
-		if (!mkdir($uploadpath))
+		if (!mkdir(joinPath(UPLOAD_DIRECTORY, $directoryName)))
 			throw new RuntimeException("Couldn't create directory for uploaded image!");
 
-		$imageName = slugify(basename($image['name'], ".png"));
+		$imageBasename = slugify(basename($image['name'], ".png"));
 
-		$imagepath = joinPath($uploadpath, $imageName . ".png");
-		$archivepath = joinPath($uploadpath, $imageName . ".zip");
+		$imageRelativePath = joinPath($directoryName, $imageBasename . ".png");
+		$archiveRelativePath = joinPath($directoryName, $imageBasename . ".zip");
 
-		if (!move_uploaded_file($image['tmp_name'], $imagepath))
+		if (!move_uploaded_file($image['tmp_name'], joinPath(UPLOAD_DIRECTORY, $imageRelativePath)))
 			throw new RuntimeException("Couldn't move uploaded image!");
 
-		if (exec("./resizer.sh " . $imagepath . " " . $archivepath))
+		if (exec("./resizer.sh " . joinPath(UPLOAD_DIRECTORY, $imageRelativePath) . " " . joinPath(UPLOAD_DIRECTORY, $archiveRelativePath)))
 			throw new RuntimeException("Couldn't resize image!");
 
-		echo("
-			<div id='image'>
-				$imagepath
-			</div>
-			<div id='download' onClick=window.location='$archivepath'>
-						<font>Ready! Download ZIP</font>
-			</div>
-			<div id='tryagain' onClick=window.location='index.php'>
-						<font>Resize other icon</font>
-			</div>"
+		$response = json_encode(
+			array(
+				"status" => "success",
+				"imageUrl" => joinPath(UPLOAD_URL, $imageRelativePath),
+				"archiveUrl" => joinPath(UPLOAD_URL, $archiveRelativePath)
+			)
 		);
 	}
 	catch (Exception $e) {
-		echo("
-			<div id='error'>
-				<br>" . $e->getMessage() . "<br>
-				<div id='tryagain' onClick=window.location='index.php'>
-						<font>try again</font>
-				</div>
-			</div>"
+		$response = json_encode(
+			array(
+				"status" => "failure",
+				"message" => $e->getMessage()
+			)
 		);
 	}
+
+	echo($response)
+
 ?>
