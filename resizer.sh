@@ -4,9 +4,7 @@ log_sw=1
 if [ $log_sw = "1" ]; then
 	log_file=resizer.sh.log
 
-	if [ -w "$log_file" ]; then
-		.
-	else
+	if [ ! -w "$log_file" ]; then
 		if [ -f "$log_file" ]; then
 			chmod u+w "$log_file"
 			if [ "$?" != "0" ]; then
@@ -27,7 +25,7 @@ fi
 log()
 {
 	if [ $log_sw = "1" ]; then
-		echo `date +"%Y/%m/%d %T.%N"` "$1" >> "$log_file"    	
+		echo `date +"%Y/%m/%d %T.%N"` "$1" >> "$log_file"
 	fi
 }
 
@@ -40,26 +38,20 @@ unsucc()
 	fi
 }
 
-conv='/usr/local/bin/convert'
-if [ -x $conv ]; then
-	.
-else
+conv=`which convert`
+if [ ! -x $conv ]; then
 	unsucc $? "No ImageMagick util at the $conv path or binary haven't execute permissions." 020
 fi
 
 
-zipping='/usr/local/bin/zip'
-if [ -x $zipping ]; then
-	.
-else
+zipping=`which zip`
+if [ ! -x $zipping ]; then
 	unsucc $? "No ZIP util at the $zipping path or binary haven't execute permissions." 021
 fi
 
 
 tmp_path='tmp'
-if [ -w "$tmp_path" ]; then
-	.
-else
+if [ ! -w "$tmp_path" ]; then
 	if [ -d "$tmp_path" ]; then
 		chmod u+rwx "$tmp_path"
 		unsucc $? "No access to the work directory: "$tmp_path" permission denied." 022
@@ -84,7 +76,7 @@ fi
 
 dir_name=`echo "$source_img" | sed -e 's/^.*\///' | sed -e 's/\.[^.]*$//'`
 if [ -z $dir_name ]; then
-	unsucc $? "Unsuccessful process forming of \"dir_name\", system error." 200	
+	unsucc $? "Unsuccessful process forming of \"dir_name\", system error." 200
 fi
 
 work_path="$tmp_path"/"$dir_name"

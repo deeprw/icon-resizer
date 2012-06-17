@@ -80,7 +80,7 @@
 		if (!move_uploaded_file($image['tmp_name'], joinPath(UPLOAD_DIRECTORY, $imageRelativePath)))
 			throw new RuntimeException("Couldn't move uploaded image!");
 
-		if (exec("./resizer.sh " . joinPath(UPLOAD_DIRECTORY, $imageRelativePath) . " " . joinPath(UPLOAD_DIRECTORY, $archiveRelativePath)))
+		if (exec("sh resizer.sh " . joinPath(UPLOAD_DIRECTORY, $imageRelativePath) . " " . joinPath(UPLOAD_DIRECTORY, $archiveRelativePath)))
 			throw new RuntimeException("Couldn't resize image!");
 
 		$response = json_encode(
