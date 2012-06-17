@@ -57,8 +57,8 @@
 			throw new ValidationException("Invalid image size!");
 		if (!validateImageType($image))
 			throw new ValidationException("Invalid image type!");
-		#if (!validateImageDefinition($image))
-		#	throw new ValidationException("Invalid image definition!");
+		if (!validateImageDefinition($image))
+			throw new ValidationException("Invalid image definition!");
 
 		if (!createDirectory(UPLOAD_DIRECTORY))
 			throw new RuntimeException("Couldn't create upload directory!");
