@@ -10,8 +10,8 @@
 
 	class ValidationException extends RuntimeException { }
 
-	function joinPath() {
-		return join(DIRECTORY_SEPARATOR, func_get_args());
+	function joinPath($firstPart, $secondPart) {
+		return $firstPart . DIRECTORY_SEPARATOR . $secondPart;
 	}
 
 	function createDirectory($path) {
