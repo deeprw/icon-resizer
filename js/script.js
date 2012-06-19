@@ -2,13 +2,11 @@ $(function() {
 	$.ajax_upload($('#uploadButton'), {
 		action : 'upload.php',
 		name : 'image',
-		onSubmit : function(file, ext) {
-			$("#uploadButton font").text('Please wait, I resize your icon');
-			this.disable();
+		onSubmit : function(file, extension) {
+			$("#uploadButton").text('Please wait, I resize your icon');
 		},
 		onComplete : function(file, responseText) {
-			$("#uploadButton font").text('Or select a file on your computer');
-			this.enable();
+			$("#uploadButton").text('Or select a file on your computer');
 
 			response = JSON.parse(responseText);
 

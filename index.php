@@ -32,7 +32,7 @@
 
 						<div id="buttonBox">
 							<div id="uploadButton" class="button">
-								<font>Or select a file on your computer</font>
+								Or select a file on your computer
 							</div>
 						</div>
 					</div>
