@@ -78,6 +78,7 @@ $(document).ready(function() {
 						.appendTo("#download_text");
 				}
 				else {
+					$("#content").hide();
 					$('<div id="error"></div>')
 						.append($('<br/>'))
 						.append(response.message)
