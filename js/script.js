@@ -1,7 +1,7 @@
 $(function() {
 	$.ajax_upload($('#uploadButton'), {
 		action : 'upload.php',
-		name : 'userfile',
+		name : 'image',
 		onSubmit : function(file, ext) {
 			$("#uploadButton font").text('Please wait, I resize your icon');
 			this.disable();

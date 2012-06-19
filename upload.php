@@ -51,7 +51,7 @@
 	}
 
 	try {
-		$image = $_FILES['userfile'];
+		$image = $_FILES['image'];
 
 		if (!validateImageSize($image))
 			throw new ValidationException("Invalid image size!");

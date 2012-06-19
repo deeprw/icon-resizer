@@ -48,7 +48,7 @@ $(document).ready(function() {
         xhr.open('POST', 'upload.php', true);
         xhr.setRequestHeader('X-FILE-NAME', file.name);
         var fd = new FormData;
-		fd.append("userfile", file);
+		fd.append("image", file);
 		xhr.send(fd);
 
 
