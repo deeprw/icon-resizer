@@ -39,14 +39,14 @@ unsucc()
 }
 
 conv=`which convert`
-if [ ! -x $conv ]; then
-	unsucc $? "No ImageMagick util at the $conv path or binary haven't execute permissions." 020
+if [ ! -x "$conv" ]; then
+	unsucc $? "No ImageMagick util at the "$conv" path or binary haven't execute permissions." 020
 fi
 
 
 zipping=`which zip`
-if [ ! -x $zipping ]; then
-	unsucc $? "No ZIP util at the $zipping path or binary haven't execute permissions." 021
+if [ ! -x "$zipping" ]; then
+	unsucc $? "No ZIP util at the "$zipping" path or binary haven't execute permissions." 021
 fi
 
 
@@ -110,17 +110,17 @@ clean()
 }
 
 for size in 256 128 108 92 72 64 60 48 40 32 24 16; do
-	$conv "$source_img" -resize "$size"x"$size"! -filter Lanczos "$png_path"/$size.png
+	"$conv" "$source_img" -resize "$size"x"$size"! -filter Lanczos "$png_path"/"$dir_name"_$size.png
 	clean $? "Unsuccessful resize. Bad source image: \"$source_img\" or system error." 300
 done
 
-$conv "$png_path"/*.png "$ico_path"/"$dir_name".ico
+"$conv" "$png_path"/*.png "$ico_path"/"$dir_name".ico
 clean $? "Unsuccessful ICO file creating. ImageMagick or system error." 301
 
 cp "$source_img" "$png_path"/512.png
 clean $? "Unsuccessful copy source image to PNG directory, system error." 302
 
-$zipping  -q -0 -X -r "$arch_path" ./"$work_path"/
+"$zipping"  -q -0 -X -r "$arch_path" "$work_path"
 clean $? "Unsuccessful archive creating, system error." 400
 
 clean 1 "Successful complete for "$source_img"." 0
