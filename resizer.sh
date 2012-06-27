@@ -2,7 +2,7 @@
 
 log_sw=1
 if [ $log_sw = "1" ]; then
-	log_file="/home/connstance/test_png/resizer.sh.log"
+	log_file="/resizer.sh.log"
 
 	if [ ! -w "$log_file" ]; then
 		if [ -f "$log_file" ]; then
@@ -57,7 +57,7 @@ if [ ! -x "$zipping" ]; then
 fi
 
 
-tmp_path='/home/connstance/test_png/tmp'
+tmp_path='/tmp'
 if [ ! -w "$tmp_path" ]; then
 	if [ -d "$tmp_path" ]; then
 		chmod u+rwx "$tmp_path"
