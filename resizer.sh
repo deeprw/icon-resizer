@@ -117,7 +117,7 @@ done
 "$conv" "$png_path"/*.png "$ico_path"/"$dir_name".ico
 clean $? "Unsuccessful ICO file creating. ImageMagick or system error." 301
 
-cp "$source_img" "$png_path"/512.png
+cp "$source_img" "$png_path"/"$dir_name"_512.png
 clean $? "Unsuccessful copy source image to PNG directory, system error." 302
 
 "$zipping"  -q -0 -X -r "$arch_path" "$work_path"
