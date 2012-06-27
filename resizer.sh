@@ -44,28 +44,14 @@ if [ -z $scr_path ]; then
 	unsucc $? "Unsuccessful process forming of \"$scr_path\", system error." 012
 fi
 
-
 conv=`which convert`
 if [ ! -x "$conv" ]; then
 	unsucc $? "No ImageMagick util at the "$conv" path or binary haven't execute permissions." 020
 fi
 
-
 zipping=`which zip`
 if [ ! -x "$zipping" ]; then
 	unsucc $? "No ZIP util at the "$zipping" path or binary haven't execute permissions." 021
-fi
-
-
-tmp_path='/tmp'
-if [ ! -w "$tmp_path" ]; then
-	if [ -d "$tmp_path" ]; then
-		chmod u+rwx "$tmp_path"
-		unsucc $? "No access to the work directory: "$tmp_path" permission denied." 022
-	else
-		mkdir -m 755 "$tmp_path"
-		unsucc $? "The work directory: "$tmp_path" wasn't created, permissions or system error." 023
-	fi
 fi
 
 if [ -n "$1" ]; then
@@ -80,13 +66,23 @@ else
 	unsucc $? "No path to archives (no argument)." 101
 fi
 
-
 dir_name=`echo "$source_img" | sed -e 's/^.*\///' | sed -e 's/\.[^.]*$//'`
 if [ -z $dir_name ]; then
 	unsucc $? "Unsuccessful process forming of \"dir_name\", system error." 200
 fi
 
-work_path="$tmp_path"/"$dir_name"
+pre_work_path="$3"
+if [ ! -w "$pre_work_path" ]; then
+	if [ -d "$pre_work_path" ]; then
+		chmod u+rwx "$pre_work_path"
+		unsucc $? "No access to the work directory: "$pre_work_path" permission denied." 220
+	else
+		mkdir -m 755 "$pre_work_path"
+		unsucc $? "The work directory: "$pre_work_path" wasn't created, permissions or system error." 221
+	fi
+fi
+
+work_path="$pre_work_path"/"$dir_name"
 png_path="$work_path"/png
 ico_path="$work_path"/ico
 
@@ -102,6 +98,7 @@ unsucc $? "The work directory: "$png_path" wasn't created, permissions or system
 
 mkdir -m 755 "$ico_path"
 unsucc $? "The work directory: "$ico_path" wasn't created, permissions or system error." 213
+
 
 clean()
 {
@@ -127,16 +124,13 @@ clean $? "Unsuccessful ICO file creating. ImageMagick or system error." 301
 cp "$source_img" "$png_path"/"$dir_name"_512.png
 clean $? "Unsuccessful copy source image to PNG directory, system error." 302
 
-
-cd "$tmp_path"
-clean $? "No access to the temp directory: "$tmp_path" permission denied, or system error." 410
-
+cd "$pre_work_path"
+clean $? "No access to the temp directory: "$pre_work_path" permission denied, or system error." 410
 
 "$zipping"  -q -0 -X -r "$arch_path" "$dir_name"
 clean $? "Unsuccessful archive creating, system error." 400
 
 cd "$scr_path"
 clean $? "No access to the script path directory: "$scr_path" permission denied, or system error." 411
-
 
 clean 1 "Successful complete for "$source_img"." 0
