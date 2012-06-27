@@ -2,7 +2,7 @@
 
 log_sw=1
 if [ $log_sw = "1" ]; then
-	log_file=resizer.sh.log
+	log_file="/home/connstance/test_png/resizer.sh.log"
 
 	if [ ! -w "$log_file" ]; then
 		if [ -f "$log_file" ]; then
@@ -38,6 +38,13 @@ unsucc()
 	fi
 }
 
+
+scr_path=`echo "$0" | sed -e 's/\(^.*\/\)[^/]*/\1/'`
+if [ -z $scr_path ]; then
+	unsucc $? "Unsuccessful process forming of \"$scr_path\", system error." 012
+fi
+
+
 conv=`which convert`
 if [ ! -x "$conv" ]; then
 	unsucc $? "No ImageMagick util at the "$conv" path or binary haven't execute permissions." 020
@@ -50,7 +57,7 @@ if [ ! -x "$zipping" ]; then
 fi
 
 
-tmp_path='tmp'
+tmp_path='/home/connstance/test_png/tmp'
 if [ ! -w "$tmp_path" ]; then
 	if [ -d "$tmp_path" ]; then
 		chmod u+rwx "$tmp_path"
@@ -120,7 +127,16 @@ clean $? "Unsuccessful ICO file creating. ImageMagick or system error." 301
 cp "$source_img" "$png_path"/"$dir_name"_512.png
 clean $? "Unsuccessful copy source image to PNG directory, system error." 302
 
-"$zipping"  -q -0 -X -r "$arch_path" "$work_path"
+
+cd "$tmp_path"
+clean $? "No access to the temp directory: "$tmp_path" permission denied, or system error." 410
+
+
+"$zipping"  -q -0 -X -r "$arch_path" "$dir_name"
 clean $? "Unsuccessful archive creating, system error." 400
+
+cd "$scr_path"
+clean $? "No access to the script path directory: "$scr_path" permission denied, or system error." 411
+
 
 clean 1 "Successful complete for "$source_img"." 0
