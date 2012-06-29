@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# logging
 log_sw=1
 if [ $log_sw = "1" ]; then
 	log_file="/resizer.sh.log"
@@ -29,9 +30,10 @@ log()
 	fi
 }
 
+
+# checking for success, logging and error's code return
 unsucc()
 {
-	#echo $1 $2 $3
 	if [ "$1" != "0" ]; then
 		log "$2"
 		exit $3
@@ -39,10 +41,9 @@ unsucc()
 }
 
 
-scr_path=`echo "$0" | sed -e 's/\(^.*\/\)[^/]*/\1/'`
-if [ -z $scr_path ]; then
-	unsucc $? "Unsuccessful process forming of \"$scr_path\", system error." 012
-fi
+# checking for necessary utils, arguments, variables and other
+# * Note *
+# If you have same problems with "which" util output, it maybe in old BSD version, use `which | sed -e 's/^[^/]*//'` instead of `which`, probably it may help you.
 
 conv=`which convert`
 if [ ! -x "$conv" ]; then
@@ -66,12 +67,12 @@ else
 	unsucc $? "No path to archives (no argument)." 101
 fi
 
-dir_name=`echo "$source_img" | sed -e 's/^.*\///' | sed -e 's/\.[^.]*$//'`
-if [ -z $dir_name ]; then
-	unsucc $? "Unsuccessful process forming of \"dir_name\", system error." 200
+if [ -n "$3" ]; then
+	pre_work_path="$3"
+else
+	unsucc $? "No path to work directory (no argument)." 102
 fi
 
-pre_work_path="$3"
 if [ ! -w "$pre_work_path" ]; then
 	if [ -d "$pre_work_path" ]; then
 		chmod u+rwx "$pre_work_path"
@@ -82,6 +83,13 @@ if [ ! -w "$pre_work_path" ]; then
 	fi
 fi
 
+dir_name=`echo "$source_img" | sed -e 's/^.*\///' | sed -e 's/\.[^.]*$//'`
+if [ -z $dir_name ]; then
+	unsucc $? "Unsuccessful process forming of \"dir_name\", system error." 200
+fi
+
+
+# working with necessary directories
 work_path="$pre_work_path"/"$dir_name"
 png_path="$work_path"/png
 ico_path="$work_path"/ico
@@ -100,11 +108,12 @@ mkdir -m 755 "$ico_path"
 unsucc $? "The work directory: "$ico_path" wasn't created, permissions or system error." 213
 
 
+# deleting garbage
 clean()
 {
 	if [ $1 != "0" ]; then
-		if [ -d "$work_path" ]; then
-			rm -rf "$work_path"
+		if [ -d "$pre_work_path" ]; then
+			rm -rf "$pre_work_path"
 			if [ $? != "0" ]; then
 				unsucc $? "Unsuccessful work directory removing, system error." 500
 			fi
@@ -113,6 +122,8 @@ clean()
 	unsucc "$1" "$2" "$3"
 }
 
+
+# images processing
 for size in 256 128 108 92 72 64 60 48 40 32 24 16; do
 	"$conv" "$source_img" -resize "$size"x"$size"! -filter Lanczos "$png_path"/"$dir_name"_$size.png
 	clean $? "Unsuccessful resize. Bad source image: \"$source_img\" or system error." 300
@@ -124,13 +135,14 @@ clean $? "Unsuccessful ICO file creating. ImageMagick or system error." 301
 cp "$source_img" "$png_path"/"$dir_name"_512.png
 clean $? "Unsuccessful copy source image to PNG directory, system error." 302
 
+
+# making archive
 cd "$pre_work_path"
 clean $? "No access to the temp directory: "$pre_work_path" permission denied, or system error." 410
 
 "$zipping"  -q -0 -X -r "$arch_path" "$dir_name"
 clean $? "Unsuccessful archive creating, system error." 400
 
-cd "$scr_path"
-clean $? "No access to the script path directory: "$scr_path" permission denied, or system error." 411
 
+# Done!
 clean 1 "Successful complete for "$source_img"." 0
