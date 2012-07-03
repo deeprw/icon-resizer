@@ -1,13 +1,5 @@
 <?php
 
-	define("MAX_IMAGE_SIZE", 1024 * 1024);
-	define("IMAGE_DEFINITION", 512);
-
-	define("UPLOAD_DIRECTORY", "upload");
-	define("TEMPORARY_DIRECTORY", "tmp");
-
-	define("UPLOAD_URL", "upload");
-
 	class ValidationException extends RuntimeException { }
 
 	function joinPath($firstPart, $secondPart) {
@@ -50,6 +42,14 @@
 		return $info[0] == IMAGE_DEFINITION && $info[1] = IMAGE_DEFINITION;
 	}
 
+	define("MAX_IMAGE_SIZE", 1024 * 1024);
+	define("IMAGE_DEFINITION", 512);
+
+	define("UPLOAD_DIRECTORY", joinPath(getcwd(), "upload"));
+	define("TEMPORARY_DIRECTORY", joinPath(getcwd(), "tmp"));
+
+	define("UPLOAD_URL", "upload");
+
 	try {
 		$image = $_FILES['image'];
 
@@ -71,6 +71,8 @@
 
 		if (!mkdir(joinPath(UPLOAD_DIRECTORY, $directoryName)))
 			throw new RuntimeException("Couldn't create directory for uploaded image!");
+		if (!mkdir(joinPath(TEMPORARY_DIRECTORY, $directoryName)))
+			throw new RuntimeException("Couldn't create temporary directory for image processing!");
 
 		$imageBasename = slugify(basename($image['name'], ".png"));
 
@@ -80,7 +82,7 @@
 		if (!move_uploaded_file($image['tmp_name'], joinPath(UPLOAD_DIRECTORY, $imageRelativePath)))
 			throw new RuntimeException("Couldn't move uploaded image!");
 
-		if (exec("sh resizer.sh " . joinPath(UPLOAD_DIRECTORY, $imageRelativePath) . " " . joinPath(UPLOAD_DIRECTORY, $archiveRelativePath)))
+		if (exec("sh resizer.sh " . joinPath(UPLOAD_DIRECTORY, $imageRelativePath) . " " . joinPath(UPLOAD_DIRECTORY, $archiveRelativePath) . " " . joinPath(TEMPORARY_DIRECTORY, $directoryName)))
 			throw new RuntimeException("Couldn't resize image!");
 
 		$response = json_encode(
