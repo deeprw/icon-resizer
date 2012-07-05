@@ -3,7 +3,7 @@
 # logging
 log_sw=1
 if [ $log_sw = "1" ]; then
-	log_file="/resizer.sh.log"
+	log_file="$PWD/resizer.sh.log"
 
 	if [ ! -w "$log_file" ]; then
 		if [ -f "$log_file" ]; then
