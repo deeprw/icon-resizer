@@ -14,7 +14,8 @@ $text_message = htmlspecialchars($text_message);
 $address = "deeprw@gmail.com";
 $message = ""."\nName: ".$name."\nEmail: ".$email."\nMessage: ".$text_message."";
 $subject = "IconResizer";
-$verify = mail($address,$subject,$message,"Content-type:text/plain; Charset=UTF-8\r\n");
+$from .= 'From: IconResizer' . "\r\n";
+$verify = mail($address,$subject,$message,$from,"Content-type:text/plain; Charset=UTF-8\r\n");
 
 if ($verify == 'true'){
 	echo "Thank you, it is important to us that you wrote to us!";
