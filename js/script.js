@@ -14,7 +14,7 @@ $(function() {
 				$('#dropZone').addClass('drop');
 				$('#content').fadeOut(500);
 				$('#iconz').fadeIn(500).css("background-image", "url(" + response.imageUrl + ")");
-
+				$('#zip').fadeIn(500);
 				$('<div id="download" onClick="window.location=\'' + response.archiveUrl + '\'"></div>')
 					.append($('<font>Ready! Download ZIP</font>'))
 					.appendTo("#download_text");

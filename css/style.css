@@ -178,7 +178,7 @@ p {
 	
 }
 
-#tryagain {
+#tryagain, #copy {
 	clear: left;
 	float: left;
 	padding-left: 0px;
@@ -308,7 +308,7 @@ input.button {
            
 }
 
-#tryagain:hover {
+#tryagain:hover, #copy:hover {
            
 	border-color: white;
            
@@ -606,4 +606,76 @@ h3 {
 	padding: 12px;
 	font-size: 24px;
 	font-family: sans-serif;
+}
+#zip {
+	display: none;
+	color: #3399ff;
+	font-size: 24px;
+	font-weight: bold;
+	left: 550px;
+	top: 140px;
+	position: absolute;
+	border-color: #848484;
+	border-width: 0px;
+	border-style: dashed;
+	height: 250px;
+	width: 180px;
+	text-align: center;
+}
+#zipBox {
+	margin-top: 4px;
+	color: #3399ff;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: normal;
+	border-color: #848484;
+	border-width: 4px;
+	border-style: dashed;
+	height: 200px;
+	width: 180px;
+	text-align: center;
+	-webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+}
+#zipBox ul {
+	margin-left: 20px;
+	margin-bottom: 0px;
+	margin-right: 20px;
+	margin-top: 15px;
+	color: #71a4ff;
+	float: left;
+	position: relative;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+}
+#zipBox ul li {
+	font-style: normal;
+	font-weight: normal;
+	color: #808080;
+	text-align: center;
+	font-size: 12px;
+}
+#arrowTop {
+	margin-left: -22px;
+	margin-top: -110px;
+	z-index: 6;
+	background-position: center center;
+	position: absolute;
+	height: 108px;
+	width: 127px;
+	background-image: url(../images/arrowTop.png);
+	background-repeat: no-repeat;
+}
+#arrowBottom {
+	margin-top: 5px;
+	margin-left: -140px;
+	z-index: 6;
+	background-position: center center;
+	position: absolute;
+	height: 203px;
+	width: 240px;
+	background-image: url(../images/arrowBottom.png);
+	background-repeat: no-repeat;
 }
