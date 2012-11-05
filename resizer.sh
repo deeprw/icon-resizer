@@ -42,8 +42,6 @@ unsucc()
 
 
 # checking for necessary utils, arguments, variables and other
-# * Note *
-# If you have same problems with "which" util output, it maybe in old BSD version, use `which | sed -e 's/^[^/]*//'` instead of `which`, probably it may help you.
 
 conv=`which convert`
 if [ ! -x "$conv" ]; then
